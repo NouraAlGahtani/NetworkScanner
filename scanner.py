@@ -1,4 +1,4 @@
-import socket
+import socket 
 import subprocess
 import sys
 from datetime import datetime
@@ -39,7 +39,39 @@ for port in port_range:
     except:
         pass
     
-        
+#--------------------------------------------error handling for catching erorrs-------------------------------------------------
+
+try:
+    for port in range(1,1025):
+       sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+       result = sock.connect_ex((remoteServerIP, port))
+       if result == 0:
+        print("PORT{} Open".format(port))
+        sock.close()
+except KeyboardInterrupt:
+    print("You Pressed ctrl + c")
+    sys.exit()
+except socket.gaierror:
+    print("HostName could not resolved exiting ")
+    sys.exit()
+except socket.error:
+    print("couldnt connect to server ")
+    sys.exit()
+
+#-----------------------------------------------checking time again ---------------------------------------------------------------------------------------
+t2 = datetime.now()
+
+
+#-----------------------------------------------------the differnce time ish--------------------------------------------------------------------------------
+
+total = t2 - t1
+
+#------------------------------------------------------------------------------------------------------------
+
+print ('Scanning Completed in: ', total)
+
+    
+
 
 
 
